@@ -2,7 +2,7 @@
 플레이어는 최대 4명까지 할당 가능합니다.
 
 C# 기준
-- IPlayer 인터페이스를 구현하여 빌드한 다음 어셈블리(dll 파일)을 external/plugin 에 보관합니다.
+- IPlayer 인터페이스를 구현하여 빌드한 다음 어셈블리(dll 파일)을 externals/players 에 보관합니다.
 
 > map 정보 예시
 
