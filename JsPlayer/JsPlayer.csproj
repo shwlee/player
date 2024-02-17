@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="cloPlayer.js" />
+    <EmbeddedResource Include="cloPlayer.js" />
   </ItemGroup>
 
 </Project>
