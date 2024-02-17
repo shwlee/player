@@ -15,7 +15,7 @@ namespace CSharpPlayer
 
 		public string GetName()
 		{
-			return "CLO_Dummy";
+			return "CLO_Dummy1";
 		}
 
 		public void Initialize(int myNumber, int column, int row)
