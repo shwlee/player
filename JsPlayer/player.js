@@ -26,10 +26,11 @@ function GetName() {
 // myPosition:int 현재 플레이어의 위치. map 배열의 인덱스로 표시됨
 // returns:이번 프레임에 진행할 방향. left, up, right, down 순서오 0, 1, 2, 3 으로 표현.
 function MoveNext(map, myPosition) {
-    const seed = map.length - 1;
-    const random = Math.random() * seed;
-    const selectedIndex = Math.floor(random);    
-
+	let min = 0;
+	let max = 3;
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	let selectedIndex = Math.floor(Math.random() * (max - min + 1)) + min;
     return selectedIndex;
 }
 

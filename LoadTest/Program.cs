@@ -4,6 +4,6 @@ using LoadTest.Loader;
 Console.WriteLine("load test start!");
 
 //ModuleLoader.TestJsModule();
-ModuleLoader.TestInstanceJsMediator();
+ModuleLoader.TestJsMoveNext();
 
 Console.WriteLine("DONE!");
