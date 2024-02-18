@@ -3,17 +3,15 @@
 var _myNumber;
 var _column;
 var _row;
-var _totalMineCount;
 
 // Player 를 초기화 합니다. 게임 환경을 인자로 전달받습니다. 전달받은 인자는 게임 동안 유지해야합니다.
 // int: myNumber = 할당받은 플레이어 번호. (플레이 순서)
 // int: column = 현재 생성된 보드의 열.
 // int: row = 현재 생성된 보드의 행.
-function Initialize(myNumber, column, row, totalMineCount) {
+function Initialize(myNumber, column, row) {
     _myNumber = myNumber;
     _column = column;
     _row = row;
-    _totalMineCount = totalMineCount;
 }
 
 // Player 의 이름을 반환합니다. 현재 플레이어의 이름을 하드코딩하여 반환합니다.

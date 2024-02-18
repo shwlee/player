@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using JsPlayer;
+using System.Reflection;
 
 namespace LoadTest.Loader;
 
@@ -13,5 +14,32 @@ internal class ModuleLoader
 		{
 			Console.WriteLine(reader.ReadToEnd());
 		}
+	}
+
+	public static void TestLoadJsMediator()
+	{
+		var jsPlayer = new JsMediator();
+	}
+
+	public static void TestGetNameJsMediator()
+	{
+		var jsPlayer = new JsMediator();
+		var name = jsPlayer.GetName();
+		Console.WriteLine(name);
+	}
+
+	public static void TestInstanceJsMediator()
+	{
+		var jsPlayer = new JsMediator();
+		var name = jsPlayer.GetName();
+		Console.WriteLine(name);
+
+		var myNumber = 10;
+		var column = 20;
+		var row = 10;
+		jsPlayer.Initialize(myNumber, column, row);
+
+		var (loadedMyNumber, loadedColumn, loadedRow) = jsPlayer.GetInstanceMembers();
+		Console.WriteLine($"loaded-myNum:{loadedMyNumber}, column:{loadedColumn}, row:{loadedRow}" ); 
 	}
 }
