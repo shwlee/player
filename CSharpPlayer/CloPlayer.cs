@@ -1,4 +1,4 @@
-﻿using PlayerLib;
+using PlayerLib;
 using System;
 
 namespace CSharpPlayer
@@ -15,7 +15,7 @@ namespace CSharpPlayer
 
 		public string GetName()
 		{
-			return "CLO_Dummy1";
+			return "c# player";
 		}
 
 		public void Initialize(int myNumber, int column, int row)

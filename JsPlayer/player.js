@@ -1,4 +1,4 @@
-﻿// sample
+// sample
 
 var _myNumber;
 var _column;
@@ -16,7 +16,7 @@ function Initialize(myNumber, column, row) {
 
 // Player 의 이름을 반환합니다. 현재 플레이어의 이름을 하드코딩하여 반환합니다.
 function GetName() {
-    return "CLO_Dummy2";
+    return "javascript player";
 }
 
 
