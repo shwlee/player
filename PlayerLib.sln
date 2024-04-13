@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayerLib", "PlayerLib\PlayerLib.csproj", "{7338E2EC-EAD3-4D08-8E85-973D97F3FB02}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpPlayer", "CSharpPlayer\CSharpPlayer.csproj", "{2B4FBCFF-601A-4263-B92E-E934A137D4EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpPlayer", "Runners\CSharp\CSharpPlayer\CSharpPlayer.csproj", "{2B4FBCFF-601A-4263-B92E-E934A137D4EE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsPlayer", "JsPlayer\JsPlayer.csproj", "{4EAF6339-E927-44A4-9C11-175530AD1AD1}"
 EndProject
@@ -14,6 +14,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Test", "0.Test", "{6147B6DC-96F0-4032-B1BE-1ABA21F969D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PyPlayer", "PyPlayer\PyPlayer.csproj", "{B01EE82F-D83E-4C9B-9A44-BA0E08139E0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runners", "Runners", "{3749E99B-5EC5-4E80-A523-99A1619F275F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{B9493FE9-7BDE-46BD-9C40-058136762C6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpHost", "Runners\CSharp\CSharpHost\CSharpHost.csproj", "{68AFCDDD-046B-4F9B-B731-11B0502FFC98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +47,19 @@ Global
 		{B01EE82F-D83E-4C9B-9A44-BA0E08139E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01EE82F-D83E-4C9B-9A44-BA0E08139E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01EE82F-D83E-4C9B-9A44-BA0E08139E0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AFCDDD-046B-4F9B-B731-11B0502FFC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AFCDDD-046B-4F9B-B731-11B0502FFC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AFCDDD-046B-4F9B-B731-11B0502FFC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AFCDDD-046B-4F9B-B731-11B0502FFC98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2B4FBCFF-601A-4263-B92E-E934A137D4EE} = {B9493FE9-7BDE-46BD-9C40-058136762C6B}
 		{6033EC63-C4A0-49F9-A5EC-3F9FC4170AE5} = {6147B6DC-96F0-4032-B1BE-1ABA21F969D2}
+		{B9493FE9-7BDE-46BD-9C40-058136762C6B} = {3749E99B-5EC5-4E80-A523-99A1619F275F}
+		{68AFCDDD-046B-4F9B-B731-11B0502FFC98} = {B9493FE9-7BDE-46BD-9C40-058136762C6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {314884F7-6B79-45B1-A9C3-BC8CF1C2D07A}
