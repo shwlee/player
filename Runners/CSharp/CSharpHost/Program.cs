@@ -3,6 +3,13 @@ using CSharpHost.Extensions;
 using CSharpHost.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+int port = 50923;
+
+if (args.Length > 0)
+{
+    port = int.Parse(args[0]);
+}
+
 
 // Add services to the container.
 
@@ -15,6 +22,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.UseUrls($"http://localhost:{port}", $"https://localhost:{++port}");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,8 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
