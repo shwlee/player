@@ -21,10 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-if (port is not null)
-{
-    builder.WebHost.UseUrls($"http://localhost:{port}", $"https://localhost:{++port}");
-}
+builder.WebHost.UseUrls($"http://localhost:{port ?? 50923}");
 
 var app = builder.Build();
 

@@ -17,6 +17,7 @@ public class PlayerFactory
         // Add necessary references
         var references = new[]
         {
+            // publish single file 로 패키지 뽑을 경우 Assembly.Location 모두 empty 로 반환됨!!
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(System.Runtime.AssemblyTargetedPatchBandAttribute).Assembly.Location),
