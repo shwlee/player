@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CSharpHost.Controllers;
 
 [ApiController]
-[Route("coinchallenger/[controller]")]
+[Route("coinchallenger/csharp/[controller]")]
 public class GameController(IHostApplicationLifetime hostLifetime, IGameService gameService) : BaseController
 {
     private readonly IHostApplicationLifetime _hostLifetime = hostLifetime;

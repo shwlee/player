@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpHost.Controllers;
 
-[Route("coinchallenger/[controller]")]
+[Route("coinchallenger/csharp/[controller]")]
 public class PlayerController(IGameService gameService) : BaseController
 {
     private readonly IGameService _gameService = gameService;
