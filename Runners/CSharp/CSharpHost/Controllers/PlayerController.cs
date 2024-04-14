@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CSharpHost.Controllers;
 
 [ApiController]
-[Route("coinchallenger/player")]
+[Route("coinchallenger/csharp")]
 public class PlayerController(IGameService gameService, IHostApplicationLifetime hostLifetime) : Controller
 {
     private readonly IGameService _gameService = gameService;
@@ -18,29 +18,29 @@ public class PlayerController(IGameService gameService, IHostApplicationLifetime
         return Ok();
     }
 
-    [HttpPost("load")]
+    [HttpPost("player/load")]
     public async Task<IActionResult> LoadPlayer([FromForm] int position, [FromForm] string filePath, CancellationToken cancellation)
     {
         await _gameService.LoadPlayer(position, filePath, cancellation);
         return Ok();
     }
 
-    [HttpPost("init")]
+    [HttpPost("player/init")]
     public IActionResult Initialize([FromForm] int position, [FromForm] int column, [FromForm] int row)
     {
         _gameService.InitializePlayer(position, column, row);
         return Ok();
     }
 
-    [HttpGet("name/{position}")]
+    [HttpGet("player/name/{position}")]
     public IActionResult GetName([FromRoute] int position)
         => Ok(_gameService.GetPlayerName(position));
 
-    [HttpPost("movenext")]
+    [HttpPost("player/movenext")]
     public async Task<IActionResult> MoveNext([FromBody] GameMessage message)
         => Ok(await _gameService.MoveNext(message));
 
-    [HttpPost("shutdown")]
+    [HttpPost("game/shutdown")]
     public IActionResult Shutdown()
     {
         _hostLifetime.StopApplication();
