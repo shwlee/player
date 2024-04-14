@@ -3,9 +3,9 @@ const gameService = require("../services/gameService");
 const router = express.Router();
 
 // content-type : x-www-form-urlencoded
-router.post("/load", (req, res, next) => {
+router.post("/load", async (req, res, next) => {
   const { position, filePath } = req.body;
-  gameService.loadPlayer(position, filePath);
+  await gameService.loadPlayer(position, filePath);
   res.status(200).end();
 });
 
@@ -16,9 +16,9 @@ router.post("/init", (req, res, next) => {
   res.status(200).end();
 });
 
-router.post("/movenext", (req, res, next) => {
+router.post("/movenext", async (req, res, next) => {
   const map = req.body;
-  const direction = gameService.moveNext(map);
+  const direction = await gameService.moveNext(map);
   res.send({ direction });
 });
 
@@ -28,4 +28,4 @@ router.get("/name/:position", (req, res, next) => {
   res.send(playerName);
 });
 
-module.exports = router
+module.exports = router;

@@ -2,5 +2,21 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "name": "jsHost",
+  "bin": {
+    "app": "./app.js"
+  },
+  "scripts": {
+    "pkg": "pkg ."
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "dist"
   }
 }
