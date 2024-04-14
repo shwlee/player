@@ -7,6 +7,8 @@ public interface IGameService
 {
     void InitGame(int column, int row);
 
+    GameSet GetCurrentGameSet();
+
     Task LoadPlayer(int position, string filePath, [Optional] CancellationToken cancellation);
 
     void InitializePlayer(int position, int column, int row);
