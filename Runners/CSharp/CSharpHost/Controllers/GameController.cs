@@ -1,4 +1,4 @@
-﻿using CSharpHost.Contracts;
+using CSharpHost.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CSharpHost.Controllers;
@@ -9,6 +9,10 @@ public class GameController(IHostApplicationLifetime hostLifetime, IGameService 
 {
     private readonly IHostApplicationLifetime _hostLifetime = hostLifetime;
     private readonly IGameService _gameService = gameService;
+
+    [HttpGet("healthy")]
+    public IActionResult Healthy()
+        => Ok();
 
     [HttpPost("set")]
     public IActionResult SetGame([FromQuery] int column, [FromQuery] int row)

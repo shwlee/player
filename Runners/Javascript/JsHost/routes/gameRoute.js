@@ -2,6 +2,10 @@ const gameService = require("../services/gameService");
 const express = require("express");
 const router = express.Router();
 
+router.get("/healthy", (req, res, next) => {
+  res.status(200).end();
+});
+
 router.get("/", (req, res, next) => {
   res.send(gameService.getGame());
 });
