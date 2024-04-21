@@ -1,25 +1,25 @@
 const express = require("express");
+const multer  = require('multer');
+const upload = multer();
 const gameService = require("../services/gameService");
 const router = express.Router();
 
-// content-type : x-www-form-urlencoded
-router.post("/load", async (req, res, next) => {
-  const { position, filePath } = req.body;
+router.post("/load", upload.none(), async (req, res, next) => {  
+  const { position, filePath } = req.body;  
   await gameService.loadPlayer(position, filePath);
   res.status(200).end();
 });
 
-// content-type : x-www-form-urlencoded
-router.post("/init", (req, res, next) => {
+router.post("/init", upload.none(), (req, res, next) => {
   const { position, column, row } = req.body;
   gameService.initPlayer(position, column, row);
   res.status(200).end();
 });
 
-router.post("/movenext", async (req, res, next) => {
-  const map = req.body;
+router.post("/movenext", async (req, res, next) => {  
+  const map = req.body;  
   const direction = await gameService.moveNext(map);
-  res.send({ direction });
+  res.send(direction.toString());  
 });
 
 router.get("/name/:position", (req, res, next) => {

@@ -17,14 +17,13 @@ class GameService {
 		}
 	}
 
-	loadPlayer(position, filePath) {
-
+	loadPlayer(position, filePath) {		
 		const runner = require(filePath); // A.js 모듈 로드
 		const instance = new runner(); // a1 클래스의 인스턴스 생성
 		this._players[position] = instance;
 	}
 
-	getPlayerName(position) {
+	getPlayerName(position) {		
 		const player = this._players[position];
 		return player.getName();
 	}
@@ -36,7 +35,11 @@ class GameService {
 
 	moveNext(gameContext) {
 		const { current, map, position } = gameContext;
-		const player = this._players[position];
+		const player = this._players[position.toString()];		
+		if (player === undefined)
+		{
+			return -1;
+		}
 		return player.moveNext(map, current);
 	}
 }
