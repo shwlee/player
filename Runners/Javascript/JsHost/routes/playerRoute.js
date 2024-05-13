@@ -5,15 +5,16 @@ const gameService = require("../services/gameService");
 const router = express.Router();
 
 router.post("/load", upload.none(), async (req, res, next) => {  
+  console.log(req.body);
   const { position, filePath } = req.body;  
-  await gameService.loadPlayer(position, filePath);
-  res.status(200).end();
+  const loaded = await gameService.loadPlayer(position, filePath);
+  res.status(loaded).end();
 });
 
 router.post("/init", upload.none(), (req, res, next) => {
   const { position, column, row } = req.body;
-  gameService.initPlayer(position, column, row);
-  res.status(200).end();
+  const intialized = gameService.initPlayer(position, column, row);
+  res.status(intialized).end();
 });
 
 router.post("/movenext", async (req, res, next) => {  
