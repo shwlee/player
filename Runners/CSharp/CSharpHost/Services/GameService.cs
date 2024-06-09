@@ -1,5 +1,6 @@
 ﻿using CSharpHost.Contracts;
 using CSharpHost.Models;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace CSharpHost.Services;
@@ -38,15 +39,31 @@ public class GameService(IPlayerService playerService) : IGameService
 
     }
 
-    public Task<int> MoveNext(GameMessage message, [Optional] CancellationToken cancellation)
+    public async Task<int> MoveNext(GameMessage message, [Optional] CancellationToken cancellation)
     {
-        var (position, map, current) = message;
-
-        return Task.Run(() =>
+        try
         {
-            var player = _playerService.GetPlayer(position);
-            return player.MoveNext(map, current);
-        });
+            var (position, map, current) = message;
+
+            return await Task.Run(() =>
+            {
+                var player = _playerService.GetPlayer(position);
+
+                var stopwatch = Stopwatch.StartNew();
+                var direction = player.MoveNext(map, current);
+                Debug.WriteLine($"position:{position}, direction:{direction}, elapsed:{stopwatch.ElapsedMilliseconds}");
+                if (direction < 0 || direction > 3)
+                {
+                    throw new InvalidOperationException($"The result is out of range. result:{direction}");
+                }
+                return direction;
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            throw;
+        }
     }
 
     public GameSet GetCurrentGameSet()
@@ -54,7 +71,7 @@ public class GameService(IPlayerService playerService) : IGameService
 
     public void CleanUp()
     {
-        _column = 0; 
+        _column = 0;
         _row = 0;
         _playerService.CleanUp();
     }
