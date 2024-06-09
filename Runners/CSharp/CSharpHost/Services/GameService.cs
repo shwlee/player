@@ -51,4 +51,11 @@ public class GameService(IPlayerService playerService) : IGameService
 
     public GameSet GetCurrentGameSet()
         => new GameSet(_column, _row);
+
+    public void CleanUp()
+    {
+        _column = 0; 
+        _row = 0;
+        _playerService.CleanUp();
+    }
 }

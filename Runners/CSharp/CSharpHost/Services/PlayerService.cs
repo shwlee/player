@@ -30,4 +30,9 @@ public class PlayerService(IPlayerLoader playerLoader) : IPlayerService
 
         _playerBag[position] = player;
     }
+
+    public void CleanUp()
+    {
+        _playerBag.Clear();
+    }
 }

@@ -17,8 +17,14 @@ router.post("/set", (req, res, next) => {
   res.status(200).end();
 });
 
+router.post("/cleanup", (req, res, next) => {
+  gameService.cleanup();
+  res.status(200).end();
+});
+
 router.post("/shutdown", (req, res, next) => {
-  process.exit(0);  
+  res.status(200).end();
+  req.app.shutdown();
 });
 
 module.exports = router

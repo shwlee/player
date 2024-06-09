@@ -37,6 +37,7 @@ class GameService {
 			return player.getName();
 		}
 		catch (error) {
+			console.log(`error! ${error}`)
 			return error;
 		}
 	}
@@ -61,6 +62,16 @@ class GameService {
 				return -1;
 			}
 			return player.moveNext(map, current);
+		} catch (error) {
+			return -1;
+		}
+	}
+
+	cleanup(){
+		try {
+			this._column = 0;
+			this._row = 0;
+			this._players = {}
 		} catch (error) {
 			return -1;
 		}

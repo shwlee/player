@@ -16,4 +16,6 @@ public interface IGameService
     string GetPlayerName(int position);
 
     Task<int> MoveNext(GameMessage message, [Optional] CancellationToken cancellation);
+
+    void CleanUp();
 }

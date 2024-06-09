@@ -8,4 +8,6 @@ public interface IPlayerService
     Task LoadPlayer(int position, string filePath, [Optional] CancellationToken cancellation);
 
     IPlayer GetPlayer(int position);
+
+    void CleanUp();
 }

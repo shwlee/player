@@ -22,6 +22,10 @@ public class GameController(IHostApplicationLifetime hostLifetime, IGameService 
     public IActionResult Shutdown()
         => OkNoBody(_hostLifetime.StopApplication);
 
+    [HttpPost("cleanup")]
+    public IActionResult CleanUp()
+        => OkNoBody(_gameService.CleanUp);
+
     [HttpGet()]
     public IActionResult GetCurrentGameSet()
         => Ok(_gameService.GetCurrentGameSet());
