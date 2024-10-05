@@ -1,6 +1,8 @@
+using CSharpHost.configs;
 using CSharpHost.Contracts;
 using CSharpHost.Extensions;
 using CSharpHost.Services;
+using CSharpHost.Services.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 int? port = null;
@@ -10,14 +12,17 @@ if (args.Length > 0)
     port = int.Parse(args[0]);
 }
 
-// Add services to the container.
+// load configs(appsettings.json)
+builder.Configuration.AddJsonFile($"./configs/appsettings.json");
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 
 builder.Services.AddTransient<IPlayerLoader, PlayerLoader>();
 builder.Services.AddSingleton<IPlayerService, PlayerService>();
 builder.Services.AddSingleton<IGameService, GameService>();
+builder.Services.AddSingleton<IAppSettingVault, AppSettingVault>();
+builder.Services.AddSingleton<IGameLogger, GameLogger>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

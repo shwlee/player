@@ -15,8 +15,8 @@ public class GameController(IHostApplicationLifetime hostLifetime, IGameService 
         => Ok();
 
     [HttpPost("set")]
-    public IActionResult SetGame([FromQuery] int column, [FromQuery] int row)
-        => OkNoBody(() => _gameService.InitGame(column, row));
+    public IActionResult SetGame([FromQuery] string gameId, [FromQuery] int column, [FromQuery] int row)
+        => OkNoBody(() => _gameService.InitGame(gameId, column, row));
 
     [HttpPost("shutdown")]
     public IActionResult Shutdown()

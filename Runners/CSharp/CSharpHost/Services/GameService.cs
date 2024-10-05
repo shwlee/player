@@ -5,20 +5,25 @@ using System.Runtime.InteropServices;
 
 namespace CSharpHost.Services;
 
-public class GameService(IPlayerService playerService) : IGameService
+public class GameService(IPlayerService playerService, IGameLogger gameLogger) : IGameService
 {
     private readonly IPlayerService _playerService = playerService;
+    private readonly IGameLogger _gameLogger = gameLogger;
 
+    private string? _gameId;
     private int _column;
     private int _row;
     private int _totalPacketSize;
 
-    public void InitGame(int column, int row)
+    public void InitGame(string gameId, int column, int row)
     {
+        _gameId = gameId;
         _column = column;
         _row = row;
         var mapPacketSize = (column * row) * 4;
         _totalPacketSize = mapPacketSize + 4; // map 배열크기.(int[] 배열 크기) + player position 값(4byte).
+
+        _gameLogger.Init(gameId, column, row);
     }
 
     public Task LoadPlayer(int position, string filePath, [Optional] CancellationToken cancellation)
@@ -41,10 +46,10 @@ public class GameService(IPlayerService playerService) : IGameService
 
     public async Task<int> MoveNext(GameMessage message, [Optional] CancellationToken cancellation)
     {
+        var (turn, position, map, current) = message;
+
         try
         {
-            var (position, map, current) = message;
-
             return await Task.Run(() =>
             {
                 var player = _playerService.GetPlayer(position);
@@ -56,12 +61,15 @@ public class GameService(IPlayerService playerService) : IGameService
                 {
                     throw new InvalidOperationException($"The result is out of range. result:{direction}");
                 }
+
+                _gameLogger.LogPlayerAction(new GameTurn(turn, position, map, current, (MoveDirection)direction));
                 return direction;
             });
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
+            _gameLogger.LogPlayerAction(new GameTurn(turn, position, map, current, MoveDirection.Error));
             throw;
         }
     }
@@ -71,8 +79,10 @@ public class GameService(IPlayerService playerService) : IGameService
 
     public void CleanUp()
     {
+        _gameLogger.Cleanup();
+
         _column = 0;
         _row = 0;
-        _playerService.CleanUp();
+        _playerService.CleanUp();        
     }
 }

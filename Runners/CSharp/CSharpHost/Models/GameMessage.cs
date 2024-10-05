@@ -1,3 +1,3 @@
 ﻿namespace CSharpHost.Models;
 
-public record GameMessage(int Position, int[] Map, int Current);
+public record GameMessage(int Turn, int Position, int[] Map, int Current);

@@ -5,7 +5,7 @@ namespace CSharpHost.Contracts;
 
 public interface IGameService
 {
-    void InitGame(int column, int row);
+    void InitGame(string gameId, int column, int row);
 
     GameSet GetCurrentGameSet();
 
