@@ -10,10 +10,10 @@ router.get("/", (req, res, next) => {
   res.send(gameService.getGame());
 });
 
-router.post("/set", (req, res, next) => {  
-  let { column, row } = req.query;
-  console.log(column, row);
-  gameService.setGame(column, row);
+router.post("/set", (req, res, next) => {
+  let { gameId, column, row } = req.query;
+  console.log(gameId, column, row);
+  gameService.setGame(gameId, column, row);
   res.status(200).end();
 });
 
