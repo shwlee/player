@@ -4,7 +4,7 @@ import types
 class PlayerFactory:
     @staticmethod
     def load_code_module(file_path):
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r',  encoding='utf-8') as file:
             code = file.read()
 
         module_name = "player_module"

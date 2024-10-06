@@ -1,6 +1,6 @@
 import asyncio
 from concurrent.futures import CancelledError
-from PyHost.services.player_runner import PythonRunner
+from PyHost.services.python_runner import PythonRunner
 
 class PlayerLoader:
     async def load_player(self, player_file_path, cancellation_token=None):

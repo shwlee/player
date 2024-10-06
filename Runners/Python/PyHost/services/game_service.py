@@ -1,5 +1,7 @@
+from PyHost.models.game_set import GameSet
 import asyncio
 import time
+
 
 class GameService:
     def __init__(self, player_service):
@@ -54,7 +56,7 @@ class GameService:
         return direction
 
     def get_current_game_set(self):
-        return GameSet(self._column, self._row)
+        return GameSet(column=self._column, row=self._row)
 
     def clean_up(self):
         self._column = 0

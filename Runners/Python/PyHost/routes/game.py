@@ -1,17 +1,22 @@
-from fastapi import FastAPI, APIRouter, Depends, Query, HTTPException, BackgroundTasks
+from fastapi import Request , APIRouter, Depends, Query, HTTPException, BackgroundTasks
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from PyHost.services.game_service import GameService
+from PyHost.services.player_service import PlayerService
+from PyHost.services.player_loader import PlayerLoader
 
 router = APIRouter()
 
-def get_game_service() -> GameService:
-    return GameService()
+def get_game_service(request: Request) -> GameService:
+    game_service_instance = request.app.state.game_service_instance
+    if game_service_instance is None:
+        raise HTTPException(status_code=500, detail="GameService not initialized")
+    return game_service_instance
 
 @router.get("/")
 async def get_current_game_set(game_service: GameService = Depends(get_game_service)):
     current_set = game_service.get_current_game_set()
-    return JSONResponse(content=current_set, status_code=200)
+    return current_set
 
 @router.get("/healthy")
 async def healthy():
