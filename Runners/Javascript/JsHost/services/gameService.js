@@ -10,7 +10,7 @@ class GameService {
         this._players = {}
 
         // logging
-        this._logRootDir = path.join(process.cwd(), 'logs');
+        this._logRootDir = "";
         this._gameLogPath = "";
         this._gameLogger;
         this._playerLoggers = {}
@@ -21,6 +21,7 @@ class GameService {
         this._column = Number(column);
         this._row = Number(row);
 
+        this._logRootDir = path.join(process.cwd(), 'logs');
         this._gameLogPath = path.join(this._logRootDir, gameId);
 
         console.log(this._gameLogPath);
