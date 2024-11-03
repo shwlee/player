@@ -4,6 +4,7 @@ from PyHost.routes import game, player
 from PyHost.services.game_service import GameService
 from PyHost.services.player_service import PlayerService
 from PyHost.services.player_loader import PlayerLoader
+import uvicorn
 
 app = FastAPI()
 
@@ -15,3 +16,6 @@ async def startup_event():
 
 app.include_router(game.router, prefix="/coinchallenger/py/game", tags=["game"])
 app.include_router(player.router, prefix="/coinchallenger/py/player", tags=["player"])
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
