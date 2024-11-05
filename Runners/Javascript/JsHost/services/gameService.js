@@ -101,6 +101,7 @@ class GameService {
 
             this._players[Number(position)] = {
                 filePath,
+                type: "cpp",
                 player: cppPlayer
             };
             return 200;
@@ -118,6 +119,7 @@ class GameService {
             const instance = new runner(); // a1 클래스의 인스턴스 생성
             this._players[position] = {
                 filePath,
+                type: "js",
                 player: instance
             };
             return 200;
@@ -133,7 +135,7 @@ class GameService {
     getPlayerName(position) {
         try {
             position = Number(position);
-            const { filePath, player } = this._players[position];
+            const { filePath, type, player } = this._players[position];
             return player.getName();
         }
         catch (error) {
@@ -146,7 +148,7 @@ class GameService {
     initPlayer(position, column, row) {
         try {
             position = Number(position);
-            const { filePath, player } = this._players[position];
+            const { filePath, type, player } = this._players[position];
             player.initialize(position, column, row);
             return 200;
         } catch (error) {
@@ -162,15 +164,23 @@ class GameService {
         const logger = this.getOrCreatePlayerLogger(position);
         try {
             const playerPosition = Number(position);
-            const { filePath, player } = this._players[playerPosition];
+            const { filePath, type, player } = this._players[playerPosition];
             if (player === undefined) {
                 return -1;
             }
-            const direction = player.moveNext(map, current);
+
+            var direction = -1;
+            if (type === "cpp") {
+                const intArrPtr = new intArrType(map);
+                direction = player.moveNext(map.length, intArrPtr, current);
+            }
+            else
+                direction = player.moveNext(map, current);
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
-        } catch (error) {
+        }
+        catch (error) {
             console.log("moveNext", error);
             const errorResult = { turn, position, map, current, direction: -1 };
             logger.info(JSON.stringify(errorResult, this.replacer, 2));
@@ -217,7 +227,7 @@ class GameService {
             console.log("start cleanup!");
             // delete require() cache 
             for (const index in this._players) {
-                const { filePath, player } = this._players[index];
+                const { filePath, type, player } = this._players[index];
                 delete require.cache[require.resolve(filePath)];
                 console.log("delete cache", filePath);
             }
