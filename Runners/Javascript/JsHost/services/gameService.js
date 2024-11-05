@@ -21,6 +21,9 @@ class GameService {
         this._gameLogPath = "";
         this._gameLogger;
         this._playerLoggers = {}
+
+        // 경로가 다르기 때문에 config.json에 직접 입력해줘야 한다.
+        this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
     }
 
     setGame(gameId, column, row) {
