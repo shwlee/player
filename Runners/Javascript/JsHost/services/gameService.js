@@ -2,6 +2,13 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 
+const ffi = require('ffi-napi');
+const ref = require('ref-napi');
+const arrType = require('ref-array-napi');
+const intArrType = arrType(ref.types.int);
+
+const { execSync } = require('child_process');
+
 class GameService {
     constructor() {
         this._gameId = "";
@@ -55,7 +62,53 @@ class GameService {
         }
     }
 
-    loadPlayer(position, filePath) {
+    async loadCppPlayer(position, filePath) {
+        try {
+            const builderPath = path.resolve(this._config.builder_path);
+            const batchPath = path.resolve('./build.bat');
+
+            const data = fs.readFileSync(filePath, 'utf8');
+            fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
+
+            let baseName = path.basename(filePath, path.extname(filePath));
+            let baseTargetPath = builderPath + '/result/Release/' + baseName;
+            let newTargetPath = baseTargetPath + '.dll';
+            let counter = 1;
+            while (fs.existsSync(newTargetPath)) {
+                newTargetPath = `${baseTargetPath}_${counter}.dll`;
+                counter += 1;
+            }
+
+            baseName = path.basename(newTargetPath, '.dll');
+            const output = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            const voidType = ref.types.void;
+            const intType = ref.types.int;
+            const cstrType = ref.types.CString;
+            var dllPath = builderPath + '/result/Release/' + baseName + '.dll';
+            console.log(dllPath);
+            var cppPlayer = ffi.Library(dllPath,
+                {
+                    'initialize': [voidType, [intType, intType, intType]],
+                    'getName': [cstrType, []],
+                    'moveNext': [intType, [intType, intArrType, intType]],
+                }
+            );
+
+            console.log(cppPlayer.getName());
+
+            this._players[Number(position)] = {
+                filePath,
+                player: cppPlayer
+            };
+            return 200;
+        }
+        catch (error) {
+            console.log("loadPlayer cpp error", error);
+            return 400;
+        }
+    }
+
+    loadJsPlayer(position, filePath) {
         try {
             position = Number(position);
             const runner = require(filePath); // A.js 모듈 로드

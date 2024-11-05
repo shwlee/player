@@ -2,7 +2,10 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
+    "ffi-napi": "^4.0.3",
     "multer": "^1.4.5-lts.1",
+    "ref-napi": "^3.0.3",
+    "ref-array-napi": "^1.2.2",
     "winston": "^3.15.0"
   },
   "devDependencies": {
