@@ -77,7 +77,7 @@ class GameService {
     getPlayerName(position) {
         try {
             position = Number(position);
-            const { filePath, type, player } = this._players[position];
+            const { filePath, player } = this._players[position];
             return player.getName();
         }
         catch (error) {
@@ -110,13 +110,11 @@ class GameService {
             if (player === undefined) {
                 return -1;
             }
-
             const direction = player.moveNext(map, current);
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
-        }
-        catch (error) {
+        } catch (error) {
             console.log("moveNext", error);
             const errorResult = { turn, position, map, current, direction: -1 };
             logger.info(JSON.stringify(errorResult, this.replacer, 2));
