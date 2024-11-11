@@ -1,4 +1,5 @@
 #include "CppPlayer.h"
+#include <cstdlib>
 
 void CCppPlayer::Initialize(int myNumber, int column, int row)
 {
@@ -6,10 +7,10 @@ void CCppPlayer::Initialize(int myNumber, int column, int row)
 
 const char* CCppPlayer::GetName()
 {
-    return "Faker11";
+    return "Aaronium";
 }
 
 int CCppPlayer::MoveNext(int argc, int* argv, int myPosition)
 {
-    return 0;
+    return std::rand() % 4;
 }
