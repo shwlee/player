@@ -20,7 +20,7 @@ def get_game_service(request: Request) -> GameService:
 @router.post("/load")
 async def load_player(
     position: int = Form(...),
-    file_path: str = Form(...),
+    filePath: str = Form(...),
     game_service: GameService = Depends(get_game_service)
 ):
     try:
