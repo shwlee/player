@@ -1,20 +1,18 @@
 from cx_Freeze import setup, Executable
 
-# Include necessary files and packages
 includes = []
 packages = ["uvicorn", "fastapi"]
 excludes = []
 
-# Specify the main file to run the FastAPI application
 executables = [
     Executable(
-        script="PyHost/main.py",  # Path to your FastAPI entry point
-        target_name="pyhost_app.exe",  # Name of the executable
+        script="PyHost/main.py",
+        target_name="PyHost.exe",
     )
 ]
 
 setup(
-    name="PyHostApp",
+    name="PyHost",
     version="1.0",
     description="FastAPI application bundled as an executable",
     options={
@@ -22,7 +20,7 @@ setup(
             "packages": packages,
             "includes": includes,
             "excludes": excludes,
-            "include_files": ["PyHost/models", "PyHost/routes", "PyHost/services"],  # Include additional folders
+            "include_files": ["PyHost/models", "PyHost/routes", "PyHost/services"],
         }
     },
     executables=executables

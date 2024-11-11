@@ -5,6 +5,7 @@ from PyHost.services.game_service import GameService
 from PyHost.services.player_service import PlayerService
 from PyHost.services.player_loader import PlayerLoader
 import uvicorn
+import argparse
 
 app = FastAPI()
 
@@ -18,4 +19,8 @@ app.include_router(game.router, prefix="/coinchallenger/py/game", tags=["game"])
 app.include_router(player.router, prefix="/coinchallenger/py/player", tags=["player"])
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    parser = argparse.ArgumentParser(description="Run FastAPI app with a specified port.")
+    parser.add_argument("--port", type=int, default=8000, help="Port to run the FastAPI app on")
+    args = parser.parse_args()
+
+    uvicorn.run(app, host="127.0.0.1", port=args.port)
