@@ -1,10 +1,11 @@
 #pragma once
-#include <windows.h>
 
+#ifdef _WIN32
 #ifdef CPPPLAYER_EXPORTS
 #define CPPPLAYER_API __declspec(dllexport)
 #else
 #define CPPPLAYER_API __declspec(dllimport)
+#endif
 #endif
 
 // This class is exported from the dll

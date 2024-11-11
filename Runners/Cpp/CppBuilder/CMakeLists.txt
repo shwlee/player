@@ -9,7 +9,6 @@ add_definitions(
 )
 
 set(SOURCES
-    dllmain.cpp
     src/CppPlayer.cpp  
 )
 
