@@ -2,20 +2,13 @@ const express = require("express");
 const multer = require('multer');
 const upload = multer();
 const gameService = require("../services/gameService");
-const path = require('path');
 const router = express.Router();
 
 router.post("/load", upload.none(), async (req, res, next) => {
   console.log(req.body);
   const { position, filePath } = req.body;
-  if (path.extname(filePath).toLowerCase() === '.cpp') {
-    const loaded = await gameService.loadCppPlayer(position, filePath);    
-    res.status(loaded).end();
-  }
-  else {
-    const loaded = await gameService.loadJsPlayer(position, filePath);
-    res.status(loaded).end();
-  }
+  const loaded = await gameService.loadPlayer(position, filePath);
+  res.status(loaded).end();
 });
 
 router.post("/init", upload.none(), (req, res, next) => {

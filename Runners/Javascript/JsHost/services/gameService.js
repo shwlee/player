@@ -2,13 +2,6 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 
-const ffi = require('ffi-napi');
-const ref = require('ref-napi');
-const arrType = require('ref-array-napi');
-const intArrType = arrType(ref.types.int);
-
-const { execSync } = require('child_process');
-
 class GameService {
     constructor() {
         this._gameId = "";
@@ -21,9 +14,6 @@ class GameService {
         this._gameLogPath = "";
         this._gameLogger;
         this._playerLoggers = {}
-
-        // 경로가 다르기 때문에 config.json에 직접 입력해줘야 한다.
-        this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
     }
 
     setGame(gameId, column, row) {
@@ -65,61 +55,13 @@ class GameService {
         }
     }
 
-    async loadCppPlayer(position, filePath) {
-        try {
-            const builderPath = path.resolve(this._config.builder_path);
-            const batchPath = path.resolve('./build.bat');
-
-            const data = fs.readFileSync(filePath, 'utf8');
-            fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
-
-            let baseName = path.basename(filePath, path.extname(filePath));
-            let baseTargetPath = builderPath + '/result/Release/' + baseName;
-            let newTargetPath = baseTargetPath + '.dll';
-            let counter = 1;
-            while (fs.existsSync(newTargetPath)) {
-                newTargetPath = `${baseTargetPath}_${counter}.dll`;
-                counter += 1;
-            }
-
-            baseName = path.basename(newTargetPath, '.dll');
-            const output = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
-            const voidType = ref.types.void;
-            const intType = ref.types.int;
-            const cstrType = ref.types.CString;
-            var dllPath = builderPath + '/result/Release/' + baseName + '.dll';
-            console.log(dllPath);
-            var cppPlayer = ffi.Library(dllPath,
-                {
-                    'initialize': [voidType, [intType, intType, intType]],
-                    'getName': [cstrType, []],
-                    'moveNext': [intType, [intType, intArrType, intType]],
-                }
-            );
-
-            console.log(cppPlayer.getName());
-
-            this._players[Number(position)] = {
-                filePath,
-                type: "cpp",
-                player: cppPlayer
-            };
-            return 200;
-        }
-        catch (error) {
-            console.log("loadPlayer cpp error", error);
-            return 400;
-        }
-    }
-
-    loadJsPlayer(position, filePath) {
+    loadPlayer(position, filePath) {
         try {
             position = Number(position);
             const runner = require(filePath); // A.js 모듈 로드
             const instance = new runner(); // a1 클래스의 인스턴스 생성
             this._players[position] = {
                 filePath,
-                type: "js",
                 player: instance
             };
             return 200;
@@ -148,7 +90,7 @@ class GameService {
     initPlayer(position, column, row) {
         try {
             position = Number(position);
-            const { filePath, type, player } = this._players[position];
+            const { filePath, player } = this._players[position];
             player.initialize(position, column, row);
             return 200;
         } catch (error) {
@@ -164,18 +106,12 @@ class GameService {
         const logger = this.getOrCreatePlayerLogger(position);
         try {
             const playerPosition = Number(position);
-            const { filePath, type, player } = this._players[playerPosition];
+            const { filePath, player } = this._players[playerPosition];
             if (player === undefined) {
                 return -1;
             }
 
-            var direction = -1;
-            if (type === "cpp") {
-                const intArrPtr = new intArrType(map);
-                direction = player.moveNext(map.length, intArrPtr, current);
-            }
-            else
-                direction = player.moveNext(map, current);
+            const direction = player.moveNext(map, current);
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
@@ -227,7 +163,7 @@ class GameService {
             console.log("start cleanup!");
             // delete require() cache 
             for (const index in this._players) {
-                const { filePath, type, player } = this._players[index];
+                const { filePath, player } = this._players[index];
                 delete require.cache[require.resolve(filePath)];
                 console.log("delete cache", filePath);
             }
