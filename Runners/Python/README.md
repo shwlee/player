@@ -2,43 +2,42 @@
 
 ## Working Directory: `./Python/`
 
-### 1. Activate PyEnv
+### 1. Create and activate PyEnv
 Choose the appropriate command based on your shell environment.
+Running this script will create a virtual environment and install the required packages.
 
 - **PowerShell**
   ```powershell
-  ./PyEnv/Scripts/Activate.ps1
-  ```
-
-- **CMD**
-  ```cmd
-  ./PyEnv/Scripts/activate.bat
+  .\PyEnv.ps1
   ```
 
 - **Bash**
   ```bash
-  source ./PyEnv/Scripts/activate
+  sh ./PyEnv.sh
   ```
 
-### 2. Install Requirements
-If not already done, install dependencies from `requirements.txt`.
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Build
+### 2. Build
 Run the appropriate build command based on your operating system.
 
 - **Windows**
-  ```bash
-  python3 setup.py build
+  ```powershell
+  python setup.py build
   ```
 
-- **Mac**
+- **Bash**
   ```bash
-  python3 setup-mac.py build
+  python setup-mac.py build
   ```
 
-### 4. Verify Build Directory
+### 3. Check Build Directory
 Check the build directory to confirm successful build completion.
+
+- **Windows**
+  ```powershell
+  {build directory}/PyHost.exe --port 8001
+  ```
+
+- **Bash**
+  ```bash
+  {build directory}/PyHost --port 8001
+  ```

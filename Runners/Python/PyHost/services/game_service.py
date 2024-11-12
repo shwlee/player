@@ -6,11 +6,13 @@ import time
 class GameService:
     def __init__(self, player_service):
         self._player_service = player_service
+        self._gameId = ""
         self._column = 0
         self._row = 0
         self._total_packet_size = 0
 
-    def init_game(self, column, row):
+    def init_game(self, gameId, column, row):
+        self._gameId = gameId
         self._column = column
         self._row = row
         map_packet_size = (column * row) * 4
