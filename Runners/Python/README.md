@@ -34,10 +34,10 @@ Check the build directory to confirm successful build completion.
 
 - **Windows**
   ```powershell
-  {build directory}/PyHost.exe --port 8001
+  {build directory}/PyHost.exe 8001
   ```
 
 - **Bash**
   ```bash
-  {build directory}/PyHost --port 8001
+  {build directory}/PyHost 8001
   ```

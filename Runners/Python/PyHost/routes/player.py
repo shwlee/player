@@ -24,7 +24,7 @@ async def load_player(
     game_service: GameService = Depends(get_game_service)
 ):
     try:
-        await game_service.load_player(position, file_path)
+        await game_service.load_player(position, filePath)
         return JSONResponse(content="Player loaded successfully", status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

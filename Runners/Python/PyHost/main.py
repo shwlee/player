@@ -20,7 +20,8 @@ app.include_router(player.router, prefix="/coinchallenger/py/player", tags=["pla
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run FastAPI app with a specified port.")
-    parser.add_argument("--port", type=int, default=8000, help="Port to run the FastAPI app on")
+    parser.add_argument("port", type=int, nargs="?", default=8000, help="Port to run the FastAPI app on")
+
     args = parser.parse_args()
 
     uvicorn.run(app, host="127.0.0.1", port=args.port)
