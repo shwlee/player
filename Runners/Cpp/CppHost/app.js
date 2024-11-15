@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const gameRouter = require("./routes/gameRoute");
 const playerRouter = require("./routes/playerRoute");
-const port = process.argv[2] ?? 50923;
+const port = process.argv[2] ?? 50309;
 const app = express();
 
 app.use(express.json());

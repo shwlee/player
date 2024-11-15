@@ -2,10 +2,7 @@ const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
 
-const ffi = require('ffi-napi');
-const ref = require('ref-napi');
-const arrType = require('ref-array-napi');
-const intArrType = arrType(ref.types.int);
+const { load, DataType, open, close, arrayConstructor, define } = require('ffi-rs');
 
 const { execSync } = require('child_process');
 
@@ -84,18 +81,33 @@ class GameService {
 
             baseName = path.basename(newTargetPath, '.dll');
             const output = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
-            const voidType = ref.types.void;
-            const intType = ref.types.int;
-            const cstrType = ref.types.CString;
+
             var dllPath = builderPath + '/result/Release/' + baseName + '.dll';
             console.log(dllPath);
-            var cppPlayer = ffi.Library(dllPath,
-                {
-                    'initialize': [voidType, [intType, intType, intType]],
-                    'getName': [cstrType, []],
-                    'moveNext': [intType, [intType, intArrType, intType]],
+
+            const libName = baseName;
+            open({
+                library: libName, // key
+                path: dllPath // path
+            });
+
+            const cppPlayer = define({
+                initialize: {
+                    library: libName,
+                    retType: DataType.void,
+                    paramsType: [DataType.I32, DataType.I32, DataType.I32]
+                },
+                getName: {
+                    library: libName,
+                    retType: DataType.String,
+                    paramsType: []
+                },
+                moveNext: {
+                    library: libName,
+                    retType: DataType.I32,
+                    paramsType: [DataType.I32, DataType.I32Array, DataType.I32]
                 }
-            );
+            });
 
             console.log(cppPlayer.getName());
 
@@ -148,8 +160,7 @@ class GameService {
                 return -1;
             }
 
-            const intArrPtr = new intArrType(map);
-            const direction = player.moveNext(map.length, intArrPtr, current);
+            const direction = player.moveNext(map.length, new Array(map), current);
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
