@@ -1,5 +1,6 @@
 from fastapi import Request, APIRouter, Depends, Form, Path, Body, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 from typing import Optional
 import asyncio
@@ -25,7 +26,7 @@ async def load_player(
 ):
     try:
         await game_service.load_player(position, filePath)
-        return JSONResponse(content="Player loaded successfully", status_code=200)
+        return PlainTextResponse(content="Player loaded successfully", status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -38,7 +39,7 @@ async def initialize_player(
 ):
     try:
         game_service.initialize_player(position, column, row)
-        return JSONResponse(content="Player initialized successfully", status_code=200)
+        return PlainTextResponse(content="Player initialized successfully", status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -49,7 +50,7 @@ async def get_player_name(
 ):
     try:
         name = game_service.get_player_name(position)
-        return JSONResponse(content=name, status_code=200)
+        return PlainTextResponse(content=name, status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
