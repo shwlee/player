@@ -1,3 +1,5 @@
+const os = require('os');
+const platform = os.platform();
 const winston = require('winston');
 const fs = require('fs');
 const path = require('path');
@@ -64,26 +66,41 @@ class GameService {
 
     async loadPlayer(position, filePath) {
         try {
+            var scriptExt = '';
+            var scriptCommand = '';
+            var libExt = '';
+            var midResultPath = '';
+            if (platform === 'darwin') {
+                scriptCommand = 'sh ';
+                scriptExt = '.sh';
+                libExt = '.dylib';
+                midResultPath = '/result/';
+            } else if (platform === 'win32') {
+                scriptExt = '.bat';
+                libExt = '.dll'
+                midResultPath = '/result/Release/';
+            }
+
             const builderPath = path.resolve(this._config.builder_path);
-            const batchPath = path.resolve('./build.bat');
+            const batchPath = path.resolve('./build' + scriptExt);
 
             const data = fs.readFileSync(filePath, 'utf8');
             fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
 
             let baseName = path.basename(filePath, path.extname(filePath));
-            let baseTargetPath = builderPath + '/result/Release/' + baseName;
-            let newTargetPath = baseTargetPath + '.dll';
+            let baseTargetPath = builderPath + midResultPath + baseName;
+            let newTargetPath = baseTargetPath + libExt;
             let counter = 1;
             while (fs.existsSync(newTargetPath)) {
-                newTargetPath = `${baseTargetPath}_${counter}.dll`;
+                newTargetPath = `${baseTargetPath}_${counter}${libExt}`;
                 counter += 1;
             }
 
-            baseName = path.basename(newTargetPath, '.dll');
-            const output = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            fs.chmodSync(batchPath, 0o755);
+            baseName = path.basename(newTargetPath, libExt);
+            const output = execSync(`${scriptCommand}${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
 
-            var dllPath = builderPath + '/result/Release/' + baseName + '.dll';
-            console.log(dllPath);
+            var dllPath = builderPath + midResultPath + baseName + libExt;
 
             const libName = baseName;
             open({
@@ -108,8 +125,6 @@ class GameService {
                     paramsType: [DataType.I32, DataType.I32Array, DataType.I32]
                 }
             });
-
-            console.log(cppPlayer.getName());
 
             this._players[Number(position)] = {
                 filePath,

@@ -18,12 +18,9 @@
   },
   "pkg": {
     "targets": [
-      "node18-win-x64"
+      "node18-win-x64",
+      "node18-darwin-arm64"
     ],
-    "outputPath": "dist",
-    "assets": [
-      "node_modules/ffi-napi/build/Release/ffi_bindings.node",
-      "node_modules/ref-napi/prebuilds/win32-x64/node.napi.node"
-    ]
+    "outputPath": "dist"
   }
 }
