@@ -36,7 +36,7 @@ class GameService:
 
     async def move_next(self, message, cancellation_token=None):
         try:
-            position, map_data, current = message
+            turn, position, map_data, current = message
 
             return await asyncio.to_thread(self._move_next_sync, position, map_data, current)
         except Exception as ex:
