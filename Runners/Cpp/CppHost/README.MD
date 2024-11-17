@@ -6,7 +6,13 @@ Install the modules required to build the host
 ```
 npm install
 ```
-  
+
+## Mac
+install xcode.  
+  ```
+  xcode-select --install
+  ```
+
 ### 2. Change config
 Open Config.json and change builder_path to absolute path of CppPlayer.
 
