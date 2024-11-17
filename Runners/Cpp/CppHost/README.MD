@@ -31,3 +31,5 @@ Copy these files to `coin-challenger/Assets/StreamingAssets/Runners/{Platform}/C
 ./CppHost/build.bat
 ./CppHost/config.json 
 ```
+
+Caution: Platform and architecture may be included in the executable file name. Please rename the executable file that suits you to cppHost.
