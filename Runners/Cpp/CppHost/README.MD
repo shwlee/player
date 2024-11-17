@@ -1,5 +1,4 @@
 # CppHost Executable Build Guide
-(For now, Windows only)
 
 ### 1. Install npm modules
 Install the modules required to build the host
