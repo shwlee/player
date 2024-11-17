@@ -25,6 +25,7 @@ pkg .
 
 ### 4. Specify file location
 Copy these files to `coin-challenger/Assets/StreamingAssets/Runners/{Platform}/CppHost` folder
+Caution: Platform and architecture may be included in the executable file name. Please rename the executable file that suits you to cppHost.
 
 ``` From
 ./CppHost/dist/cppHost.exe
