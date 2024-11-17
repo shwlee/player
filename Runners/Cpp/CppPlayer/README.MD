@@ -1,5 +1,5 @@
 # Description of CppPlayer
-Project that turns cppPlayer into dll. (For now, Windows only)
+Project that turns cppPlayer into dll or dylib.
 
 ### Structure
 CCppPlayer's essential functions must always be implemented
@@ -11,7 +11,9 @@ int CCppPlayer::MoveNext(int argc, int* argv, int myPosition)
 ```
 
 ### Scope of Support
-Stl can be included and used as desired.
+c++17 support.
+Cannot use gcc or clang extensions.
+Stl can be included and used as desired. 
 
 ### Template
 ```
