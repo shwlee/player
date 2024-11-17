@@ -7,7 +7,7 @@ Install the modules required to build the host
 npm install
 ```
 
-## Mac
+#### Mac
 install xcode.  
   ```
   xcode-select --install
