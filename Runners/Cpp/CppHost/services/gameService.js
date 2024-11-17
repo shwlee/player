@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 
 const { load, DataType, open, close, arrayConstructor, define } = require('ffi-rs');
-
 const { execSync } = require('child_process');
 
 class GameService {
@@ -22,7 +21,10 @@ class GameService {
         this._playerLoggers = {}
 
         // 경로가 다르기 때문에 config.json에 직접 입력해줘야 한다.
-        this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+        if (platform === 'darwin')
+            this._config = JSON.parse(fs.readFileSync(path.join(__dirname, '../config.json')), 'utf8');
+        else
+            this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
     }
 
     setGame(gameId, column, row) {
@@ -66,29 +68,23 @@ class GameService {
 
     async loadPlayer(position, filePath) {
         try {
-            var scriptExt = '';
-            var scriptCommand = '';
             var libExt = '';
-            var midResultPath = '';
+            var batchPath = '';
             if (platform === 'darwin') {
-                scriptCommand = 'sh ';
-                scriptExt = '.sh';
                 libExt = '.dylib';
-                midResultPath = '/result/';
+                batchPath = path.resolve(path.join(process.execPath, '../build.sh'));
             } else if (platform === 'win32') {
-                scriptExt = '.bat';
                 libExt = '.dll'
-                midResultPath = '/result/Release/';
+                batchPath = path.resolve('./build.bat');
             }
 
             const builderPath = path.resolve(this._config.builder_path);
-            const batchPath = path.resolve('./build' + scriptExt);
-
             const data = fs.readFileSync(filePath, 'utf8');
             fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
+            
 
             let baseName = path.basename(filePath, path.extname(filePath));
-            let baseTargetPath = builderPath + midResultPath + baseName;
+            let baseTargetPath = builderPath + '/result/Release/' + baseName;
             let newTargetPath = baseTargetPath + libExt;
             let counter = 1;
             while (fs.existsSync(newTargetPath)) {
@@ -96,13 +92,14 @@ class GameService {
                 counter += 1;
             }
 
-            fs.chmodSync(batchPath, 0o755);
             baseName = path.basename(newTargetPath, libExt);
-            const output = execSync(`${scriptCommand}${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            if (platform === 'darwin')
+                execSync(`sh ${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            else
+                execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
 
-            var dllPath = builderPath + midResultPath + baseName + libExt;
-
-            const libName = baseName;
+            var libName = baseName;
+            var dllPath = builderPath + '/result/Release/' + baseName + libExt;
             open({
                 library: libName, // key
                 path: dllPath // path
@@ -111,7 +108,7 @@ class GameService {
             const cppPlayer = define({
                 initialize: {
                     library: libName,
-                    retType: DataType.void,
+                    retType: DataType.Void,
                     paramsType: [DataType.I32, DataType.I32, DataType.I32]
                 },
                 getName: {
@@ -128,6 +125,7 @@ class GameService {
 
             this._players[Number(position)] = {
                 filePath,
+                libName: libName,
                 player: cppPlayer
             };
             return 200;
@@ -141,7 +139,7 @@ class GameService {
     getPlayerName(position) {
         try {
             position = Number(position);
-            const { filePath, player } = this._players[position];
+            const { filePath, libName, player } = this._players[position];
             return player.getName();
         }
         catch (error) {
@@ -154,8 +152,8 @@ class GameService {
     initPlayer(position, column, row) {
         try {
             position = Number(position);
-            const { filePath, player } = this._players[position];
-            player.initialize(position, column, row);
+            const { filePath, libName, player } = this._players[position];
+            player.initialize([parseInt(position), parseInt(column), parseInt(row)]);
             return 200;
         } catch (error) {
             // log	
@@ -170,12 +168,14 @@ class GameService {
         const logger = this.getOrCreatePlayerLogger(position);
         try {
             const playerPosition = Number(position);
-            const { filePath, player } = this._players[playerPosition];
+            const { filePath, libName, player } = this._players[playerPosition];
             if (player === undefined) {
                 return -1;
             }
 
-            const direction = player.moveNext(map.length, new Array(map), current);
+            const intArray = map.map(numStr => parseInt(numStr));
+            const direction = player.moveNext([intArray.length, intArray, parseInt(position)]);
+            
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
@@ -227,8 +227,8 @@ class GameService {
             console.log("start cleanup!");
             // delete require() cache 
             for (const index in this._players) {
-                const { filePath, player } = this._players[index];
-                player = null;
+                const { filePath, libName, player } = this._players[index];
+                close(libName);
                 delete require.cache[require.resolve(filePath)];
                 console.log("delete cache", filePath);
             }
