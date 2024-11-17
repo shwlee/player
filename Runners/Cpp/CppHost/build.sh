@@ -15,10 +15,13 @@ echo "${OUTPUT_NAME}"
 # "result" 디렉터리로 이동
 cd "${PROJECT_PATH}/result" || { echo "경로로 이동할 수 없습니다: ${PROJECT_PATH}/result"; exit 1; }
 
+rm "${PROJECT_PATH}/result/CMakeFiles/CppBuilder.dir/src/CppPlayer.cpp.o"
+rm "${PROJECT_PATH}/result/CMakeFiles/CppBuilder.dir/src/CppPlayer.cpp.o.d"
+rm "${PROJECT_PATH}/result/libCppBuilder.dylib"
+
 # CMake 명령 실행
 cmake ..
 cmake --build . --config Release
 
 # 빌드된 DLL 파일 이름 변경
-mv "${PROJECT_PATH}/result/libCppBuilder.dylib" "${PROJECT_PATH}/result/${OUTPUT_NAME}.dylib"
-
+cp "${PROJECT_PATH}/result/libCppBuilder.dylib" "${PROJECT_PATH}/result/Release/${OUTPUT_NAME}.dylib"
