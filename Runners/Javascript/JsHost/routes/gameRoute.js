@@ -11,8 +11,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/set", (req, res, next) => {
-  let { gameId, column, row } = req.query;
-  console.log(gameId, column, row);
+  let { gameId, column, row } = req.query;  
   gameService.setGame(gameId, column, row);
   res.status(200).end();
 });

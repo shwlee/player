@@ -21,7 +21,7 @@ class GameService {
         this._column = Number(column);
         this._row = Number(row);
 
-        this._logRootDir = path.join(process.cwd(), 'logs');
+        this._logRootDir = path.join(path.dirname(process.execPath), 'logs');
         this._gameLogPath = path.join(this._logRootDir, gameId);
 
         console.log(this._gameLogPath);
