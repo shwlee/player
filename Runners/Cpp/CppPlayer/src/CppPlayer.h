@@ -1,11 +1,13 @@
 #pragma once
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #ifdef CPPPLAYER_EXPORTS
 #define CPPPLAYER_API __declspec(dllexport)
 #else
 #define CPPPLAYER_API __declspec(dllimport)
 #endif
+#elif defined(__APPLE__)
+#define CPPPLAYER_API __attribute__((visibility("default")))
 #endif
 
 // This class is exported from the dll
