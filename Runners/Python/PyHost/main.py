@@ -6,16 +6,21 @@ from PyHost.services.game_logger import GameLogger
 from PyHost.services.player_service import PlayerService
 from PyHost.services.player_loader import PlayerLoader
 
-import uvicorn
-import argparse
+import uvicorn, os, sys, argparse
 
 app = FastAPI()
 
+def get_current_dir():
+    if getattr(sys, "frozen", False):  # cx_Freeze 환경
+        return os.path.dirname(sys.executable)
+    else:  # 개발 환경 (스크립트 실행)
+        return os.path.dirname(os.path.abspath(__file__))
+    
 @app.on_event("startup")
 async def startup_event():
     player_loader = PlayerLoader()
     player_service = PlayerService(player_loader)
-    game_logger = GameLogger("logs")
+    game_logger = GameLogger(os.path.join(get_current_dir(), "logs"))
     app.state.game_service_instance = GameService(player_service, game_logger)
 
 app.include_router(game.router, prefix="/coinchallenger/py/game", tags=["game"])
