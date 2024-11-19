@@ -13,7 +13,7 @@ if (args.Length > 0)
 }
 
 // load configs(appsettings.json)
-builder.Configuration.AddJsonFile($"./configs/appsettings.json");
+builder.Configuration.AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "configs", "appsettings.json"));
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 
 builder.Services.AddTransient<IPlayerLoader, PlayerLoader>();
