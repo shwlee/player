@@ -1,6 +1,7 @@
 ﻿using CSharpHost.Contracts;
 using CSharpHost.Models;
 using Serilog;
+using Serilog.Core;
 using System.Text.Json;
 
 namespace CSharpHost.Services.Utils;
@@ -60,7 +61,16 @@ public class GameLogger(IAppSettingVault appSettingVault) : IGameLogger
 
     public void Cleanup()
     {
+        foreach (var loggerSet in _playerLoggers)
+        {
+            var logger = loggerSet.Value as Logger;
+            logger?.Dispose();
+        }
+
         _playerLoggers.Clear();
+
+        var gameLogger = _gameLogger as Logger;
+        gameLogger?.Dispose();
     }
 
     private Serilog.ILogger GetDefaultLogger()
