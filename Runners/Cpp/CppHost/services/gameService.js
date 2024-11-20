@@ -25,6 +25,16 @@ class GameService {
             this._config = JSON.parse(fs.readFileSync(path.join(__dirname, '../config.json')), 'utf8');
         else
             this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+        if (process.pkg)
+        {
+            this._startupPath = path.resolve(process.execPath + '/..');
+            this._builderPath = path.join(this._startupPath, '../../../../../playerHost/Runners/Cpp/CppPlayer');
+        }
+        else 
+        {
+            this._startupPath = process.cwd();
+            this._builderPath = path.join(this._startupPath, '../../../../playerHost/Runners/Cpp/CppPlayer');
+        }
     }
 
     setGame(gameId, column, row) {
@@ -92,14 +102,30 @@ class GameService {
                 counter += 1;
             }
 
+            var t = '';
             baseName = path.basename(newTargetPath, libExt);
+
+            var scriptPath = path.join(builderPath, 'build.sh'); 
+
+            this.writeLog(baseName);
+
             if (platform === 'darwin')
-                execSync(`sh ${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            {
+                this.writeLog('darwin');
+                fs.chmodSync(scriptPath, 0o755);
+                t = execSync(`sh ${scriptPath} ${baseName}`, { encoding: 'utf-8' });
+            }
             else
-                execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            {
+                this.writeLog('win32');
+                t = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+            }
+
+            this.writeLog(t);
 
             var libName = baseName;
             var dllPath = builderPath + '/result/Release/' + baseName + libExt;
+            this.writeLog(dllPath);
             open({
                 library: libName, // key
                 path: dllPath // path
