@@ -20,15 +20,13 @@ class GameService {
         this._gameLogger;
         this._playerLoggers = {}
 
-        // 경로가 다르기 때문에 config.json에 직접 입력해줘야 한다.
-        if (platform === 'darwin')
-            this._config = JSON.parse(fs.readFileSync(path.join(__dirname, '../config.json')), 'utf8');
-        else
-            this._config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
         if (process.pkg)
         {
             this._startupPath = path.resolve(process.execPath + '/..');
             this._builderPath = path.join(this._startupPath, '../../../../../playerHost/Runners/Cpp/CppPlayer');
+            if (!fs.existsSync(this._builderPath)) {
+                this._builderPath = path.join(this._startupPath, 'CppPlayer');
+            }
         }
         else 
         {
@@ -79,20 +77,19 @@ class GameService {
     async loadPlayer(position, filePath) {
         try {
             var libExt = '';
-            var batchPath = '';
+            var scriptExt = '';
             if (platform === 'darwin') {
                 libExt = '.dylib';
-                batchPath = path.resolve(path.join(process.execPath, '../build.sh'));
+                scriptExt = '.sh';
             } else if (platform === 'win32') {
                 libExt = '.dll'
-                batchPath = path.resolve('./build.bat');
+                scriptExt = '.bat';
             }
 
-            const builderPath = path.resolve(this._config.builder_path);
+            const builderPath = this._builderPath;
             const data = fs.readFileSync(filePath, 'utf8');
             fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
             
-
             let baseName = path.basename(filePath, path.extname(filePath));
             let baseTargetPath = builderPath + '/result/Release/' + baseName;
             let newTargetPath = baseTargetPath + libExt;
@@ -102,30 +99,21 @@ class GameService {
                 counter += 1;
             }
 
-            var t = '';
             baseName = path.basename(newTargetPath, libExt);
 
-            var scriptPath = path.join(builderPath, 'build.sh'); 
-
-            this.writeLog(baseName);
-
+            var scriptPath = path.join(builderPath, 'build' + scriptExt); 
             if (platform === 'darwin')
             {
-                this.writeLog('darwin');
                 fs.chmodSync(scriptPath, 0o755);
-                t = execSync(`sh ${scriptPath} ${baseName}`, { encoding: 'utf-8' });
+                execSync(`sh ${scriptPath} ${baseName}`, { encoding: 'utf-8' });
             }
             else
             {
-                this.writeLog('win32');
-                t = execSync(`${batchPath} ${filePath} ${builderPath} ${baseName}`, { encoding: 'utf-8' });
+                execSync(`${scriptPath} ${baseName}`, { encoding: 'utf-8' });
             }
-
-            this.writeLog(t);
 
             var libName = baseName;
             var dllPath = builderPath + '/result/Release/' + baseName + libExt;
-            this.writeLog(dllPath);
             open({
                 library: libName, // key
                 path: dllPath // path
