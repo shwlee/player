@@ -1,50 +1,24 @@
 # Description of CppPlayer
-Project that turns cppPlayer into dll. (For now, Windows only)
-
-### Structure
-CCppPlayer's essential functions must always be implemented
-
-```
-void CCppPlayer::Initialize(int myNumber, int column, int row)
-const char* CCppPlayer::GetName()
-int CCppPlayer::MoveNext(int argc, int* argv, int myPosition)
-```
+Project that turns cppPlayer into dll. (For now, Windows only)  
+GCC for Windows is included to build the cpp player in real time.  
+CppPlayer must be included in the CoinChallenger distribution package.  
+For detailed setup instructions, please refer to CppHost.
 
 ### Scope of Support
-Stl can be included and used as desired.
+C++17  
+Stl  
+gcc/clang/msvc extension is not available.
 
 ### Template
 ```
-#include "CppPlayer.h"
-
-void CCppPlayer::Initialize(int myNumber, int column, int row) {
+extern "C" void initialize(int myNumber, int column, int row) {
 }
-
-const char* CCppPlayer::GetName() {
-    return "";
+extern "C" const char* getName() {
+    return "userName";
 }
-
-int CCppPlayer::MoveNext(int argc, int* argv, int myPosition) {
-    return -1;
+extern "C" int moveNext(int argc, int* argv, int myPosition) {
+    return 0;
 }
 ```
 
-### Sample
-```
-#include "CppPlayer.h"
-#include <cstdlib> // if you want to use rand
-
-void CCppPlayer::Initialize(int myNumber, int column, int row)
-{
-}
-
-const char* CCppPlayer::GetName()
-{
-    return "Aaron";
-}
-
-int CCppPlayer::MoveNext(int argc, int* argv, int myPosition)
-{
-    return std::rand() % 4;
-}
-```
+Sample cpp file is included.

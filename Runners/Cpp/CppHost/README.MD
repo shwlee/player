@@ -1,5 +1,5 @@
 # CppHost Executable Build Guide
-(For now, Windows only)
+For now, Windows only.
 
 ### 1. Install npm modules
 Install the modules required to build the host
@@ -7,28 +7,27 @@ Install the modules required to build the host
 ```
 npm install
 ```
-  
-### 2. Change config
-Open Config.json and change builder_path to absolute path of CppPlayer.
 
-```
-{
-    "builder_path": "Change\\this\\correctly"
-}
-```
-
-### 3. Build
+### 2. Build
 Package it as an executable file. 
 
 ```
 pkg .
 ```
 
-### 4. Specify file location
-Copy these files to `coin-challenger/Assets/StreamingAssets/Runners/{Platform}/CppHost` folder
+### 3. Specify file location
+Copy file `cppHost.exe` to `coin-challenger/Assets/StreamingAssets/Runners/Windows/CppHost`  
+Caution: Platform and architecture may be included in the executable filename(ex. cppHost-darwin-arm64 / cppHost-win-x64). Please rename the executable file that suits you to cppHost.
 
-``` From
-./CppHost/dist/cppHost.exe
-./CppHost/build.bat
-./CppHost/config.json 
 ```
+./CppHost/dist/cppHost.exe
+```
+
+### 4. Distribution
+user-written code must be compiled, the CppPlayer folder must also be distributed.  
+Copy folder `CppPlayer` to `/build_result_path/CoinChallenger_Data/StreamingAssets/Runners/Windows/CppHost`
+
+``` 
+/build_result_path/CoinChallenger_Data/StreamingAssets/Runners/Windows/CppHost/CppPlayer
+```
+

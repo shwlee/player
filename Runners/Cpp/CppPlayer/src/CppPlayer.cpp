@@ -1,18 +1,11 @@
-#include <iostream>
-#include <string>
+// Sample file
 #include <cstdlib>
 
-extern "C" void initialize(int myNumber, int column, int row)
-{
+extern "C" void initialize(int myNumber, int column, int row) {}
 
-}
+extern "C" const char* getName() { return "Sample"; }
 
-extern "C" const char* getName()
-{
-    return "zzz";
-}
-
-extern "C" int moveNext(int argc, int* argv, int myPosition)
-{
-    return std::rand() % 2;
+extern "C" int moveNext(int argc, int* argv, int myPosition) {
+    // Write path finder in here.
+    return std::rand() % 4;
 }
