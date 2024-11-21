@@ -15,6 +15,6 @@ if not exist %BUILD_DIR% (
 )
 
 echo Creating DLL...
-g++ -shared -o "%BUILD_DIR%\%OUTPUT_NAME%.dll" "%SOURCE_CPP%"
+g++ -std=c++17 -shared -o "%BUILD_DIR%\%OUTPUT_NAME%.dll" "%SOURCE_CPP%" -fno-gnu-unique -pedantic -w
 
 echo Build: %BUILD_DIR%\%OUTPUT_NAME%.dll
