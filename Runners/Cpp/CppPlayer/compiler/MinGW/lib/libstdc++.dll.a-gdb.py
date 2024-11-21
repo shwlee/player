@@ -19,8 +19,8 @@ import gdb
 import os
 import os.path
 
-pythondir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + '/..') + '/share/gcc-14.2.0/python'
-libdir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + '/..') + '/lib/../lib'
+pythondir = '/mingw64/share/gcc-14.2.0/python'
+libdir = '/mingw64/lib/../lib'
 
 # This file might be loaded when there is no current objfile.  This
 # can happen if the user loads it manually.  In this case we don't

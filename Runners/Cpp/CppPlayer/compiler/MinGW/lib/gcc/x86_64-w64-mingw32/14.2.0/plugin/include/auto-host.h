@@ -46,7 +46,7 @@
 
 /* Define 0/1 to force the choice for exception handling model. */
 #ifndef USED_FOR_TARGET
-#define CONFIG_SJLJ_EXCEPTIONS 0
+/* #undef CONFIG_SJLJ_EXCEPTIONS */
 #endif
 
 
@@ -240,7 +240,7 @@
 
 /* Define this to enable support for offloading. */
 #ifndef USED_FOR_TARGET
-#define ENABLE_OFFLOADING 1
+#define ENABLE_OFFLOADING 0
 #endif
 
 
@@ -2360,7 +2360,7 @@
 
 /* Value to set mingw's _dowildcard to. */
 #ifndef USED_FOR_TARGET
-#define MINGW_DOWILDCARD 1
+/* #undef MINGW_DOWILDCARD */
 #endif
 
 
@@ -2384,7 +2384,7 @@
 
 /* Define to offload targets, separated by commas. */
 #ifndef USED_FOR_TARGET
-#define OFFLOAD_TARGETS "nvptx-none"
+#define OFFLOAD_TARGETS ""
 #endif
 
 
@@ -2426,7 +2426,7 @@
 
 /* Specify plugin linker */
 #ifndef USED_FOR_TARGET
-#define PLUGIN_LD_SUFFIX "ld.exe"
+#define PLUGIN_LD_SUFFIX "ld"
 #endif
 
 
@@ -2438,7 +2438,7 @@
 
 /* Define to PREFIX/include if cpp should also search that directory. */
 #ifndef USED_FOR_TARGET
-#define PREFIX_INCLUDE_DIR "/R/winlibs_staging_ucrt64/inst_gcc-14.2.0/share/gcc/include"
+#define PREFIX_INCLUDE_DIR "/mingw64/include"
 #endif
 
 
@@ -2531,7 +2531,7 @@
 
 /* Define if your target C library provides stack protector support */
 #ifndef USED_FOR_TARGET
-/* #undef TARGET_LIBC_PROVIDES_SSP */
+#define TARGET_LIBC_PROVIDES_SSP 1
 #endif
 
 

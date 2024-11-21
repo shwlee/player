@@ -10,7 +10,7 @@ BASEVER, DATESTAMP, DEVPHASE, and REVISION are defined by the
 Makefile.  */
 
 #define version_string "14.2.0"
-#define pkgversion_string "(MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r2) "
+#define pkgversion_string "(Rev2, Built by MSYS2 project) "
 
 /* This is the location of the online document giving instructions for
 reporting bugs.  If you distribute a modified version of GCC,
@@ -19,7 +19,7 @@ instructions for reporting bugs to you, not us.  (You are of course
 welcome to forward us bugs reported to you, if you determine that
 they are not bugs in your modifications.)  */
 
-#define bug_report_url "<https://gcc.gnu.org/bugs/>"
+#define bug_report_url "<https://github.com/msys2/MINGW-packages/issues>"
 
 #define GCOV_VERSION ((gcov_unsigned_t)0x4234322a)  /* B42* */
 

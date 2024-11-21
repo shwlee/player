@@ -5,7 +5,7 @@
 ;;; This file should be parsed by the same gengtype which wrote it.
 
 (!version  "14.2.0")
-(!srcdir  "../../gcc")
+(!srcdir  "../../gcc-14.2.0/gcc")
 (!languages 12 ada c cp d fortran go jit lto m2 objc objcp rust)
 (!fileslist 252 0
  (!srcfile 4095  "../libcpp/include/line-map.h")
@@ -521,11 +521,11 @@
                       (!srcfileloc  "tree-core.h" 1073)
                       nil )
                      (!pair  "u"
-                      (!type union 26 nil  gc_unused "anonymous:../../gcc/tree-core.h:1075"
+                      (!type union 26 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1075"
                        (!srcfileloc  "tree-core.h" 1159)
                        (!fields 9 
                         (!pair  "bits"
-                         (!type struct 27 nil  gc_unused "anonymous:../../gcc/tree-core.h:1078"
+                         (!type struct 27 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1078"
                           (!srcfileloc  "tree-core.h" 1104)
                           (!fields 17 
                            (!pair  "lang_flag_0"
@@ -601,7 +601,7 @@
                          (!srcfileloc  "tree-core.h" 1104)
                          nil )
                         (!pair  "int_length"
-                         (!type struct 28 nil  gc_unused "anonymous:../../gcc/tree-core.h:1111"
+                         (!type struct 28 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1111"
                           (!srcfileloc  "tree-core.h" 1119)
                           (!fields 2 
                            (!pair  "unextended"
@@ -621,7 +621,7 @@
                          (!srcfileloc  "tree-core.h" 1122)
                          nil )
                         (!pair  "vector_cst"
-                         (!type struct 29 nil  gc_unused "anonymous:../../gcc/tree-core.h:1125"
+                         (!type struct 29 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1125"
                           (!srcfileloc  "tree-core.h" 1134)
                           (!fields 3 
                            (!pair  "log2_npatterns"
@@ -657,7 +657,7 @@
                          (!srcfileloc  "tree-core.h" 1146)
                          nil )
                         (!pair  "dependence_info"
-                         (!type struct 30 nil  gc_unused "anonymous:../../gcc/tree-core.h:1155"
+                         (!type struct 30 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1155"
                           (!srcfileloc  "tree-core.h" 1158)
                           (!fields 2 
                            (!pair  "clique"
@@ -2553,7 +2553,7 @@
                           (!srcfileloc  "rtl.h" 404)
                           nil )
                          (!pair  "u2"
-                          (!type union 126 nil  gc_unused "anonymous:../../gcc/rtl.h:406"
+                          (!type union 126 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/rtl.h:406"
                            (!srcfileloc  "rtl.h" 440)
                            (!fields 6 
                             (!pair  "original_regno"
@@ -2577,7 +2577,7 @@
                              (!srcfileloc  "rtl.h" 426)
                              nil )
                             (!pair  "const_vector"
-                             (!type struct 127 nil  gc_unused "anonymous:../../gcc/rtl.h:430"
+                             (!type struct 127 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/rtl.h:430"
                               (!srcfileloc  "rtl.h" 439)
                               (!fields 3 
                                (!pair  "npatterns"
@@ -6866,7 +6866,7 @@
                                        )
                                       )
                                       (!pair  "x"
-                                       (!type struct 324 nil  gc_used "anonymous:../../gcc/basic-block.h:137"
+                                       (!type struct 324 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/basic-block.h:137"
                                         (!srcfileloc  "basic-block.h" 140)
                                         (!fields 2 
                                          (!pair  "head_"
@@ -10306,7 +10306,7 @@
                                       (!srcfileloc  "dwarf2out.h" 60)
                                       nil )
                                      (!pair  "dw_cfi_oprnd1"
-                                      (!type union 521 nil  gc_used "anonymous:../../gcc/dwarf2out.h:50"
+                                      (!type union 521 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/dwarf2out.h:50"
                                        (!srcfileloc  "dwarf2out.h" 57)
                                        (!fields 5 
                                         (!pair  "dw_cfi_reg_num"
@@ -10933,7 +10933,7 @@
                                                       (!srcfileloc  "dwarf2out.h" 227)
                                                       nil )
                                                      (!pair  "v"
-                                                      (!type union 553 nil  gc_used "anonymous:../../gcc/dwarf2out.h:229"
+                                                      (!type union 553 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/dwarf2out.h:229"
                                                        (!srcfileloc  "dwarf2out.h" 232)
                                                        (!fields 2 
                                                         (!pair  "sval"
@@ -12697,7 +12697,7 @@
                          )
                         )
                         (!pair  "loc"
-                         (!type union 608 nil  gc_unused "anonymous:../../gcc/tree-core.h:1620"
+                         (!type union 608 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-core.h:1620"
                           (!srcfileloc  "tree-core.h" 1620)
                           (!fields 2 
                            (!pair  "stmt"
@@ -15939,7 +15939,7 @@
                                (!srcfileloc  "c/c-decl.cc" 217)
                                (!fields 11 
                                 (!pair  "u"
-                                 (!type union 695 nil  gc_used "anonymous:../../gcc/c/c-decl.cc:203"
+                                 (!type union 695 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/c/c-decl.cc:203"
                                   (!srcfileloc  "c/c-decl.cc" 206)
                                   (!fields 2 
                                    (!pair  "type"
@@ -17536,7 +17536,7 @@
   )
   nil 4095 nil nil )
  
- (!type struct 766 nil  gc_unused "anonymous:../../gcc/../libcpp/include/line-map.h:1263"nil 
+ (!type struct 766 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/../libcpp/include/line-map.h:1263"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -17646,11 +17646,11 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 786 nil  gc_unused "anonymous:../../gcc/../libcpp/include/cpplib.h:1421"nil 
+ (!type struct 786 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/../libcpp/include/cpplib.h:1421"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 787 nil  gc_unused "anonymous:../../gcc/../libcpp/include/cpplib.h:1432"nil 
+ (!type struct 787 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/../libcpp/include/cpplib.h:1432"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -18092,7 +18092,7 @@
     (!srcfileloc  "gimple.h" 364)
     nil )
    (!pair  "u"
-    (!type union 843 nil  gc_used "anonymous:../../gcc/gimple.h:367"
+    (!type union 843 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/gimple.h:367"
      (!srcfileloc  "gimple.h" 370)
      (!fields 2 
       (!pair  "fntype"
@@ -19435,7 +19435,7 @@
   (!srcfileloc  "wide-int.h" 1158)
   (!fields 3 
    (!pair  "u"
-    (!type union 933 nil  gc_unused "anonymous:../../gcc/wide-int.h:1129"
+    (!type union 933 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/wide-int.h:1129"
      (!srcfileloc  "wide-int.h" 1132)
      (!fields 2 
       (!pair  "val"
@@ -19719,7 +19719,7 @@
   )
   nil 4095 nil nil )
  
- (!type union 967 nil  gc_unused "anonymous:../../gcc/wide-int.h:1492"
+ (!type union 967 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/wide-int.h:1492"
   (!srcfileloc  "wide-int.h" 1495)
   (!fields 2 
    (!pair  "val"
@@ -24980,7 +24980,7 @@
   )
   nil 4095 nil nil )
  
- (!type union 1450 nil  gc_used "anonymous:../../gcc/ctfc.h:113"
+ (!type union 1450 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/ctfc.h:113"
   (!srcfileloc  "ctfc.h" 116)
   (!fields 2 
    (!pair  "_size"
@@ -25092,7 +25092,7 @@
   )
   nil 4095 nil nil )
  
- (!type union 1456 nil  gc_used "anonymous:../../gcc/ctfc.h:167"
+ (!type union 1456 nil  gc_used "anonymous:../../gcc-14.2.0/gcc/ctfc.h:167"
   (!srcfileloc  "ctfc.h" 178)
   (!fields 5 
    (!pair  "dtu_members"
@@ -26568,7 +26568,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type union 1605 nil  gc_unused "anonymous:../../gcc/mcf.cc:343"nil 
+ (!type union 1605 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/mcf.cc:343"nil 
   (!fields 0 )
   nil 0 nil )
  
@@ -27011,7 +27011,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type union 1662 nil  gc_unused "anonymous:../../gcc/tree-eh.cc:53"nil 
+ (!type union 1662 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/tree-eh.cc:53"nil 
   (!fields 0 )
   nil 0 nil )
  
@@ -28647,7 +28647,7 @@
   )
  )
  
- (!type struct 1949 nil  gc_unused "anonymous:../../gcc/ada/gcc-interface/decl.cc:251"nil 
+ (!type struct 1949 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/ada/gcc-interface/decl.cc:251"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -29573,7 +29573,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2057 nil  gc_unused "anonymous:../../gcc/c/c-parser.cc:9350"nil 
+ (!type struct 2057 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/c/c-parser.cc:9350"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -33123,7 +33123,7 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2424 nil  gc_unused "anonymous:../../gcc/fortran/trans.h:33"nil 
+ (!type struct 2424 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/fortran/trans.h:33"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -33151,11 +33151,11 @@
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2431 nil  gc_unused "anonymous:../../gcc/fortran/trans.h:413"nil 
+ (!type struct 2431 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/fortran/trans.h:413"nil 
   (!fields 0 )
   nil 0 nil nil )
  
- (!type struct 2432 nil  gc_unused "anonymous:../../gcc/fortran/trans.h:425"nil 
+ (!type struct 2432 nil  gc_unused "anonymous:../../gcc-14.2.0/gcc/fortran/trans.h:425"nil 
   (!fields 0 )
   nil 0 nil nil )
  
@@ -40552,13 +40552,13 @@
   nil )
  (!pair  "ix86_previous_fndecl"
   (!type already_seen 23)
-  (!srcfileloc  "config/i386/i386-options.cc" 3318)
+  (!srcfileloc  "config/i386/i386-options.cc" 3323)
   nil )
  (!pair  "target_attribute_cache"
   (!type array 2571 nil  gc_used "3" 
    (!type already_seen 23)
   )
-  (!srcfileloc  "config/i386/i386-options.cc" 1517)
+  (!srcfileloc  "config/i386/i386-options.cc" 1522)
   nil )
  (!pair  "vselect_insn"
   (!type already_seen 325)

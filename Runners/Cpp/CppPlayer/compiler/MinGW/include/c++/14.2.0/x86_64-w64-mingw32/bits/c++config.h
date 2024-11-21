@@ -932,7 +932,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_ATOMIC_LOCK_POLICY 1
 
 /* Define to 1 if you have the `at_quick_exit' function. */
-#define _GLIBCXX_HAVE_AT_QUICK_EXIT 1
+/* #undef _GLIBCXX_HAVE_AT_QUICK_EXIT */
 
 /* Define if C99 float_t and double_t in <math.h> should be imported in
    <cmath> in namespace std for C++11. */
@@ -973,7 +973,7 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_DIRFD */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define _GLIBCXX_HAVE_DLFCN_H 1
+/* #undef _GLIBCXX_HAVE_DLFCN_H */
 
 /* Define to 1 if you have the <endian.h> header file. */
 /* #undef _GLIBCXX_HAVE_ENDIAN_H */
@@ -1217,7 +1217,7 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_QFPCLASS */
 
 /* Define to 1 if you have the `quick_exit' function. */
-#define _GLIBCXX_HAVE_QUICK_EXIT 1
+/* #undef _GLIBCXX_HAVE_QUICK_EXIT */
 
 /* Define if readlink is available in <unistd.h>. */
 /* #undef _GLIBCXX_HAVE_READLINK */
@@ -1262,7 +1262,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_SQRTL 1
 
 /* Define if the <stacktrace> header is supported. */
-/* #undef _GLIBCXX_HAVE_STACKTRACE */
+#define _GLIBCXX_HAVE_STACKTRACE 1
 
 /* Define to 1 if you have the <stdalign.h> header file. */
 #define _GLIBCXX_HAVE_STDALIGN_H 1
@@ -1380,7 +1380,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_TGMATH_H 1
 
 /* Define to 1 if you have the `timespec_get' function. */
-#define _GLIBCXX_HAVE_TIMESPEC_GET 1
+/* #undef _GLIBCXX_HAVE_TIMESPEC_GET */
 
 /* Define to 1 if the target supports thread-local storage. */
 #define _GLIBCXX_HAVE_TLS 1
@@ -1601,7 +1601,7 @@ namespace __gnu_cxx
 
 /* Define if C11 functions in <uchar.h> should be imported into namespace std
    in <cuchar>. */
-#define _GLIBCXX_USE_C11_UCHAR_CXX11 1
+/* #undef _GLIBCXX_USE_C11_UCHAR_CXX11 */
 
 /* Define if C99 functions or macros from <wchar.h>, <math.h>, <complex.h>,
    <stdio.h>, and <stdlib.h> can be used or exposed. */

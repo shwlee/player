@@ -2680,7 +2680,10 @@
 #define HAVE_sse_shufps_v4sf (TARGET_SSE)
 #define HAVE_sse_storehps (TARGET_SSE && !(MEM_P (operands[0]) && MEM_P (operands[1])))
 #define HAVE_sse_loadhps (TARGET_SSE)
-#define HAVE_sse_storelps (TARGET_SSE && !(MEM_P (operands[0]) && MEM_P (operands[1])))
+#define HAVE_sse_storelps (TARGET_SSE && TARGET_ALIGN_VECTOR_INSN \
+   && !(MEM_P (operands[0]) && MEM_P (operands[1])))
+#define HAVE_sse_storelps_unalign (TARGET_SSE && TARGET_NO_ALIGN_VECTOR_INSN \
+   && !(MEM_P (operands[0]) && MEM_P (operands[1])))
 #define HAVE_sse_loadlps (TARGET_SSE)
 #define HAVE_sse_movss_v4si (TARGET_SSE)
 #define HAVE_sse_movss_v4sf (TARGET_SSE)
@@ -13514,6 +13517,7 @@ extern rtx        gen_sse_shufps_v4sf                             (rtx, rtx, rtx
 extern rtx        gen_sse_storehps                                (rtx, rtx);
 extern rtx        gen_sse_loadhps                                 (rtx, rtx, rtx);
 extern rtx        gen_sse_storelps                                (rtx, rtx);
+extern rtx        gen_sse_storelps_unalign                        (rtx, rtx);
 extern rtx        gen_sse_loadlps                                 (rtx, rtx, rtx);
 extern rtx        gen_sse_movss_v4si                              (rtx, rtx, rtx);
 extern rtx        gen_sse_movss_v4sf                              (rtx, rtx, rtx);
