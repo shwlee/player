@@ -17,6 +17,7 @@
   },
   "pkg": {
     "targets": [
+      "node18-darwin-arm64",
       "node18-win-x64"
     ],
     "outputPath": "dist"

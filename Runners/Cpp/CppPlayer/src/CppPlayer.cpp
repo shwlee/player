@@ -1,16 +1,18 @@
-#include "CppPlayer.h"
+#include <iostream>
+#include <string>
 #include <cstdlib>
 
-void CCppPlayer::Initialize(int myNumber, int column, int row)
+extern "C" void initialize(int myNumber, int column, int row)
 {
+
 }
 
-const char* CCppPlayer::GetName()
+extern "C" const char* getName()
 {
-    return "Aaronium";
+    return "zzz";
 }
 
-int CCppPlayer::MoveNext(int argc, int* argv, int myPosition)
+extern "C" int moveNext(int argc, int* argv, int myPosition)
 {
-    return std::rand() % 4;
+    return std::rand() % 2;
 }
