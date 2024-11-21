@@ -2,17 +2,19 @@
 
 set SCRIPT_DIR=%~dp0
 set OUTPUT_NAME=%1
+set SOURCE_CPP=%2
+set MINGW_PATH=%SCRIPT_DIR%compiler/MinGW/bin
 
-if not exist "%SCRIPT_DIR%result" (
-    mkdir "%SCRIPT_DIR%result"
+:: set env
+set PATH=%MINGW_PATH%;%PATH%
+
+set BUILD_DIR=%SCRIPT_DIR%..\build
+
+if not exist %BUILD_DIR% (
+    mkdir %BUILD_DIR%
 )
 
-cd /d "%SCRIPT_DIR%result"
+echo Creating DLL...
+g++ -shared -o "%BUILD_DIR%\%OUTPUT_NAME%.dll" "%SOURCE_CPP%"
 
-del "%SCRIPT_DIR%result\CppBuilder.dir\Release\CppPlayer.obj"
-del "%SCRIPT_DIR%result\libCppBuilder.dll"
-
-cmake ..
-cmake --build . --config Release
-
-copy "%SCRIPT_DIR%result\Release\CppBuilder.dll" "%SCRIPT_DIR%result\Release\%OUTPUT_NAME%.dll"
+echo Build: %BUILD_DIR%\%OUTPUT_NAME%.dll

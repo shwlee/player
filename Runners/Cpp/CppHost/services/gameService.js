@@ -76,6 +76,7 @@ class GameService {
 
     async loadPlayer(position, filePath) {
         try {
+            // set ext by platform
             var libExt = '';
             var scriptExt = '';
             if (platform === 'darwin') {
@@ -87,20 +88,19 @@ class GameService {
             }
 
             const builderPath = this._builderPath;
-            const data = fs.readFileSync(filePath, 'utf8');
-            fs.writeFileSync(builderPath + '/src/CppPlayer.cpp', data);
-            
+
+            // make unique name
             let baseName = path.basename(filePath, path.extname(filePath));
-            let baseTargetPath = builderPath + '/result/Release/' + baseName;
+            let baseTargetPath = builderPath + '/../build/' + baseName;
             let newTargetPath = baseTargetPath + libExt;
             let counter = 1;
             while (fs.existsSync(newTargetPath)) {
                 newTargetPath = `${baseTargetPath}_${counter}${libExt}`;
                 counter += 1;
             }
-
             baseName = path.basename(newTargetPath, libExt);
 
+            // find cpp builder and execute.
             var scriptPath = path.join(builderPath, 'build' + scriptExt); 
             if (platform === 'darwin')
             {
@@ -109,11 +109,12 @@ class GameService {
             }
             else
             {
-                execSync(`${scriptPath} ${baseName}`, { encoding: 'utf-8' });
+                execSync(`${scriptPath} ${baseName} ${filePath}`, { encoding: 'utf-8' });
             }
 
+            // load and cache dll as player
             var libName = baseName;
-            var dllPath = builderPath + '/result/Release/' + baseName + libExt;
+            var dllPath = builderPath + '/../build/' + baseName + libExt;
             open({
                 library: libName, // key
                 path: dllPath // path
