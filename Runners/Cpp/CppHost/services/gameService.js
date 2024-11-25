@@ -25,6 +25,9 @@ class GameService {
             this._startupPath = path.resolve(process.execPath + '/..');
             this._builderPath = path.join(this._startupPath, '../../../../../playerHost/Runners/Cpp/CppPlayer');
             if (!fs.existsSync(this._builderPath)) {
+                this._builderPath = path.join(this._startupPath, '../../CppPlayer');
+            }
+            if (!fs.existsSync(this._builderPath)) {
                 this._builderPath = path.join(this._startupPath, 'CppPlayer');
             }
         }
