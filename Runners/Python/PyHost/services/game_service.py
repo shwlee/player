@@ -46,9 +46,10 @@ class GameService:
 
             return await asyncio.to_thread(self._move_next_sync, turn, position, map_data, current)
         except Exception as ex:
-            self._game_logger.log(f"Error during move_next: {ex}")
+            self._game_logger.log(f"turn:{turn}, Error during move_next: {ex}")
             self._game_logger.log_player_action(
-                {"turn": turn, "position": position, "map": map_data, "current": current})
+                {"turn": turn, "position": position, "map": map_data, "current": current, "error": str(ex)})
+
             return -1
             #raise  Exception(f"Error during move_next: {ex}")
 
