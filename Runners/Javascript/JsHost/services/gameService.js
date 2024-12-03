@@ -101,7 +101,7 @@ class GameService {
         }
     }
 
-    moveNext(gameContext) {
+    async moveNext(gameContext) {
         const { turn, current, map, position } = gameContext;
         const logger = this.getOrCreatePlayerLogger(position);
         try {
@@ -110,7 +110,7 @@ class GameService {
             if (player === undefined) {
                 return -1;
             }
-            const direction = player.moveNext(map, current);
+            const direction = await player.moveNext(map, current);
             const result = { turn, position, map, current, direction };
             logger.info(JSON.stringify(result, this.replacer, 2));
             return direction;
